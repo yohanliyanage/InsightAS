@@ -1,0 +1,14 @@
+InsightAS - Gain insight into your Application Server!
+======================================================
+
+Current Version:
+   0.0.1-SNAPSHOT - Development Iteration 1
+
+Authors:
+   Yohan Liyanage (yohan at computer dot org)
+
+InsightAS allows you to easily monitor and manage your application servers via a Web Console, which is integrated with various other facilities such as notifications via email, twitter, etc.
+
+With InsightAS, you don't have to manually monitor your production servers anymore. InsightAS will alert you whenever your servers need your attention. Also, it gives a single console view of many important attributes of your servers, inlcuding JVM specific statistics such as Heap Allocation, Thread Utilization and also O/S specific statistics such as CPU utlization, RAM utilization and diskspace etc. 
+
+InsightAS consists of a modular, extensible architecture which allows it to be easily extended to support various different application servers. Also, you can easily extend InisghtAS with your own senors to feed-in information, and also have customize alert levels.
