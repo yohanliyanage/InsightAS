@@ -14,6 +14,7 @@
 package net.insightas.sandbox.sensors.util;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 import javax.management.AttributeNotFoundException;
 import javax.management.InstanceNotFoundException;
@@ -21,6 +22,8 @@ import javax.management.MBeanException;
 import javax.management.MBeanServerConnection;
 import javax.management.ObjectName;
 import javax.management.ReflectionException;
+
+import net.insightas.sandbox.sensors.exception.SensorFailureException;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -77,7 +80,7 @@ public class JMXUtil {
         Object value = getObjectAttribute(server, objName, attribute);
         return (value != null) ? value.toString() : null;
     }
-
+    
     /**
      * Returns value as a Integer after reading a JMX MBean attribute.
      * 
@@ -87,23 +90,22 @@ public class JMXUtil {
      * @return value, as a Integer, or null if the attribute cannot be read
      * @throws NumberFormatException if the value is not a number
      */
-    public static Integer getIntegerAttribute(MBeanServerConnection server, ObjectName objName, String attribute) throws NumberFormatException {
+    public static Integer getIntegerAttribute(MBeanServerConnection server, ObjectName objName, String attribute)
+            throws NumberFormatException {
         Object value = getObjectAttribute(server, objName, attribute);
-
+        
         if (value == null) {
             return null;
         }
         
         if (value instanceof Integer) {
             return (Integer) value;
-        }
-        else {
+        } else {
             // Value is not an integer. Attempt parsing it.
             return Integer.valueOf(value.toString());
         }
     }
     
-
     /**
      * Returns value as a Long after reading a JMX MBean attribute.
      * 
@@ -115,21 +117,19 @@ public class JMXUtil {
      */
     public static Long getLongAttribute(MBeanServerConnection server, ObjectName objName, String attribute) throws NumberFormatException {
         Object value = getObjectAttribute(server, objName, attribute);
-
+        
         if (value == null) {
             return null;
         }
         
         if (value instanceof Long) {
             return (Long) value;
-        }
-        else {
+        } else {
             // Value is not a Long. Attempt parsing it.
             return Long.valueOf(value.toString());
         }
     }
     
-
     /**
      * Returns value as a Boolean after reading a JMX MBean attribute.
      * 
@@ -138,19 +138,54 @@ public class JMXUtil {
      * @param attribute attribute to read
      * @return value, as a Boolean, or null if the attribute cannot be read
      */
-    public static Boolean getBooleanAttribute(MBeanServerConnection server, ObjectName objName, String attribute)  {
+    public static Boolean getBooleanAttribute(MBeanServerConnection server, ObjectName objName, String attribute) {
         Object value = getObjectAttribute(server, objName, attribute);
-
+        
         if (value == null) {
             return null;
         }
         
         if (value instanceof Boolean) {
             return (Boolean) value;
-        }
-        else {
+        } else {
             // Value is not a Long. Attempt parsing it.
             return Boolean.valueOf(value.toString());
+        }
+    }
+    
+    /**
+     * Invokes a given JMX Operation.
+     * 
+     * @param server Server Connection
+     * @param objName JMX Object Name for MBean
+     * @param operation Name of Operation
+     * @param argValues Arguments Values for Operation (if any). Ex - new Object[] {"abc", false}
+     * @param argTypes Types of arguments for operation (if any). Ex - new String[] {"java.lang.String", "java.lang.Boolean"}
+     * @return Result, if any. Otherwise returns null. If operation fails, the method throws SensorFailureException
+     */
+    public static Object invokeOperation(MBeanServerConnection server, ObjectName objName, String operation, Object[] argValues,
+            String[] argTypes) throws SensorFailureException {
+        
+        try {
+            return server.invoke(objName, operation, argValues, argTypes);
+        } catch (InstanceNotFoundException e) {
+            LOG.warn("MBean Instance not found for ObjectName [" + objName + "]");
+            throw new SensorFailureException("MBean Instance not found for ObjectName [" + objName + "]", e);
+        } catch (MBeanException e) {
+            LOG.warn("MBean failed when invoking operation [" + operation + "] lookup on ObjectName [" + objName + "] - Args : "
+                            + Arrays.toString(argValues), e);
+            throw new SensorFailureException("MBean failed when invoking operation [" + operation + "] lookup on ObjectName [" + objName
+                    + "]- Args : " + Arrays.toString(argValues), e);
+        } catch (ReflectionException e) {
+            LOG.warn("Reflective field access failure when invoking operation [" + operation + "] lookup on ObjectName [" + objName
+                    + "] - Args : " + Arrays.toString(argValues), e);
+            throw new SensorFailureException("Reflective method access failure when invoking operation [" + operation
+                    + "] lookup on ObjectName [" + objName + "]", e);
+        } catch (IOException e) {
+            LOG.warn("IOException when invoking operation [" + operation + "] lookup on ObjectName [" + objName + "] - Args : "
+                            + Arrays.toString(argValues), e);
+            throw new SensorFailureException("IOException when invoking operation [" + operation + "] lookup on ObjectName [" + objName
+                    + "]- Args : " + Arrays.toString(argValues), e);
         }
     }
 }
