@@ -30,25 +30,45 @@ public class JavaMemoryInfo implements Serializable {
     private Long jvmMaxMemory;
     private Long jvmTotalUsedMemory;
     
-    private Long codeCacheMax;
-    private Long codeCacheCommitted;
-    private Long codeCacheUsed;
+    private Long codeCacheCurrentMax;
+    private Long codeCacheCurrentCommitted;
+    private Long codeCacheCurrentUsed;
     
-    private Long edenMax;
-    private Long edenCommitted;
-    private Long edenUsed;
+    private Long codeCachePeakMax;
+    private Long codeCachePeakCommitted;
+    private Long codeCachePeakUsed;
     
-    private Long survivorMax;
-    private Long survivorCommitted;
-    private Long survivorUsed;
+    private Long edenCurrentMax;
+    private Long edenCurrentCommitted;
+    private Long edenCurrentUsed;
     
-    private Long oldGenMax;
-    private Long oldGenCommitted;
-    private Long oldGenUsed;
+    private Long edenPeakMax;
+    private Long edenPeakCommitted;
+    private Long edenPeakUsed;
     
-    private Long permGenMax;
-    private Long permGenCommitted;
-    private Long permGenUsed;
+    private Long survivorCurrentMax;
+    private Long survivorCurrentCommitted;
+    private Long survivorCurrentUsed;
+    
+    private Long survivorPeakMax;
+    private Long survivorPeakCommitted;
+    private Long survivorPeakUsed;
+    
+    private Long oldGenCurrentMax;
+    private Long oldGenCurrentCommitted;
+    private Long oldGenCurrentUsed;
+    
+    private Long oldGenPeakMax;
+    private Long oldGenPeakCommitted;
+    private Long oldGenPeakUsed;
+    
+    private Long permGenCurrentMax;
+    private Long permGenCurrentCommitted;
+    private Long permGenCurrentUsed;
+    
+    private Long permGenPeakMax;
+    private Long permGenPeakCommitted;
+    private Long permGenPeakUsed;
     
     /**
      * @return the jvmMaxMemory
@@ -79,213 +99,445 @@ public class JavaMemoryInfo implements Serializable {
     }
     
     /**
-     * @return the codeCacheMax
+     * @return the codeCacheCurrentMax
      */
-    public Long getCodeCacheMax() {
-        return codeCacheMax;
+    public Long getCodeCacheCurrentMax() {
+        return codeCacheCurrentMax;
     }
     
     /**
-     * @param codeCacheMax the codeCacheMax to set
+     * @param codeCacheCurrentMax the codeCacheCurrentMax to set
      */
-    public void setCodeCacheMax(Long codeCacheMax) {
-        this.codeCacheMax = codeCacheMax;
+    public void setCodeCacheCurrentMax(Long codeCacheCurrentMax) {
+        this.codeCacheCurrentMax = codeCacheCurrentMax;
     }
     
     /**
-     * @return the codeCacheCommitted
+     * @return the codeCacheCurrentCommitted
      */
-    public Long getCodeCacheCommitted() {
-        return codeCacheCommitted;
+    public Long getCodeCacheCurrentCommitted() {
+        return codeCacheCurrentCommitted;
     }
     
     /**
-     * @param codeCacheCommitted the codeCacheCommitted to set
+     * @param codeCacheCurrentCommitted the codeCacheCurrentCommitted to set
      */
-    public void setCodeCacheCommitted(Long codeCacheCommitted) {
-        this.codeCacheCommitted = codeCacheCommitted;
+    public void setCodeCacheCurrentCommitted(Long codeCacheCurrentCommitted) {
+        this.codeCacheCurrentCommitted = codeCacheCurrentCommitted;
     }
     
     /**
-     * @return the codeCacheUsed
+     * @return the codeCacheCurrentUsed
      */
-    public Long getCodeCacheUsed() {
-        return codeCacheUsed;
+    public Long getCodeCacheCurrentUsed() {
+        return codeCacheCurrentUsed;
     }
     
     /**
-     * @param codeCacheUsed the codeCacheUsed to set
+     * @param codeCacheCurrentUsed the codeCacheCurrentUsed to set
      */
-    public void setCodeCacheUsed(Long codeCacheUsed) {
-        this.codeCacheUsed = codeCacheUsed;
+    public void setCodeCacheCurrentUsed(Long codeCacheCurrentUsed) {
+        this.codeCacheCurrentUsed = codeCacheCurrentUsed;
     }
     
     /**
-     * @return the edenMax
+     * @return the codeCachePeakMax
      */
-    public Long getEdenMax() {
-        return edenMax;
+    public Long getCodeCachePeakMax() {
+        return codeCachePeakMax;
     }
     
     /**
-     * @param edenMax the edenMax to set
+     * @param codeCachePeakMax the codeCachePeakMax to set
      */
-    public void setEdenMax(Long edenMax) {
-        this.edenMax = edenMax;
+    public void setCodeCachePeakMax(Long codeCachePeakMax) {
+        this.codeCachePeakMax = codeCachePeakMax;
     }
     
     /**
-     * @return the edenCommitted
+     * @return the codeCachePeakCommitted
      */
-    public Long getEdenCommitted() {
-        return edenCommitted;
+    public Long getCodeCachePeakCommitted() {
+        return codeCachePeakCommitted;
     }
     
     /**
-     * @param edenCommitted the edenCommitted to set
+     * @param codeCachePeakCommitted the codeCachePeakCommitted to set
      */
-    public void setEdenCommitted(Long edenCommitted) {
-        this.edenCommitted = edenCommitted;
+    public void setCodeCachePeakCommitted(Long codeCachePeakCommitted) {
+        this.codeCachePeakCommitted = codeCachePeakCommitted;
     }
     
     /**
-     * @return the edenUsed
+     * @return the codeCachePeakUsed
      */
-    public Long getEdenUsed() {
-        return edenUsed;
+    public Long getCodeCachePeakUsed() {
+        return codeCachePeakUsed;
     }
     
     /**
-     * @param edenUsed the edenUsed to set
+     * @param codeCachePeakUsed the codeCachePeakUsed to set
      */
-    public void setEdenUsed(Long edenUsed) {
-        this.edenUsed = edenUsed;
+    public void setCodeCachePeakUsed(Long codeCachePeakUsed) {
+        this.codeCachePeakUsed = codeCachePeakUsed;
     }
     
     /**
-     * @return the survivorMax
+     * @return the edenCurrentMax
      */
-    public Long getSurvivorMax() {
-        return survivorMax;
+    public Long getEdenCurrentMax() {
+        return edenCurrentMax;
     }
     
     /**
-     * @param survivorMax the survivorMax to set
+     * @param edenCurrentMax the edenCurrentMax to set
      */
-    public void setSurvivorMax(Long survivorMax) {
-        this.survivorMax = survivorMax;
+    public void setEdenCurrentMax(Long edenCurrentMax) {
+        this.edenCurrentMax = edenCurrentMax;
     }
     
     /**
-     * @return the survivorCommitted
+     * @return the edenCurrentCommitted
      */
-    public Long getSurvivorCommitted() {
-        return survivorCommitted;
+    public Long getEdenCurrentCommitted() {
+        return edenCurrentCommitted;
     }
     
     /**
-     * @param survivorCommitted the survivorCommitted to set
+     * @param edenCurrentCommitted the edenCurrentCommitted to set
      */
-    public void setSurvivorCommitted(Long survivorCommitted) {
-        this.survivorCommitted = survivorCommitted;
+    public void setEdenCurrentCommitted(Long edenCurrentCommitted) {
+        this.edenCurrentCommitted = edenCurrentCommitted;
     }
     
     /**
-     * @return the survivorUsed
+     * @return the edenCurrentUsed
      */
-    public Long getSurvivorUsed() {
-        return survivorUsed;
+    public Long getEdenCurrentUsed() {
+        return edenCurrentUsed;
     }
     
     /**
-     * @param survivorUsed the survivorUsed to set
+     * @param edenCurrentUsed the edenCurrentUsed to set
      */
-    public void setSurvivorUsed(Long survivorUsed) {
-        this.survivorUsed = survivorUsed;
+    public void setEdenCurrentUsed(Long edenCurrentUsed) {
+        this.edenCurrentUsed = edenCurrentUsed;
     }
     
     /**
-     * @return the oldGenMax
+     * @return the edenPeakMax
      */
-    public Long getOldGenMax() {
-        return oldGenMax;
+    public Long getEdenPeakMax() {
+        return edenPeakMax;
     }
     
     /**
-     * @param oldGenMax the oldGenMax to set
+     * @param edenPeakMax the edenPeakMax to set
      */
-    public void setOldGenMax(Long oldGenMax) {
-        this.oldGenMax = oldGenMax;
+    public void setEdenPeakMax(Long edenPeakMax) {
+        this.edenPeakMax = edenPeakMax;
     }
     
     /**
-     * @return the oldGenCommitted
+     * @return the edenPeakCommitted
      */
-    public Long getOldGenCommitted() {
-        return oldGenCommitted;
+    public Long getEdenPeakCommitted() {
+        return edenPeakCommitted;
     }
     
     /**
-     * @param oldGenCommitted the oldGenCommitted to set
+     * @param edenPeakCommitted the edenPeakCommitted to set
      */
-    public void setOldGenCommitted(Long oldGenCommitted) {
-        this.oldGenCommitted = oldGenCommitted;
+    public void setEdenPeakCommitted(Long edenPeakCommitted) {
+        this.edenPeakCommitted = edenPeakCommitted;
     }
     
     /**
-     * @return the oldGenUsed
+     * @return the edenPeakUsed
      */
-    public Long getOldGenUsed() {
-        return oldGenUsed;
+    public Long getEdenPeakUsed() {
+        return edenPeakUsed;
     }
     
     /**
-     * @param oldGenUsed the oldGenUsed to set
+     * @param edenPeakUsed the edenPeakUsed to set
      */
-    public void setOldGenUsed(Long oldGenUsed) {
-        this.oldGenUsed = oldGenUsed;
+    public void setEdenPeakUsed(Long edenPeakUsed) {
+        this.edenPeakUsed = edenPeakUsed;
     }
     
     /**
-     * @return the permGenMax
+     * @return the survivorCurrentMax
      */
-    public Long getPermGenMax() {
-        return permGenMax;
+    public Long getSurvivorCurrentMax() {
+        return survivorCurrentMax;
     }
     
     /**
-     * @param permGenMax the permGenMax to set
+     * @param survivorCurrentMax the survivorCurrentMax to set
      */
-    public void setPermGenMax(Long permGenMax) {
-        this.permGenMax = permGenMax;
+    public void setSurvivorCurrentMax(Long survivorCurrentMax) {
+        this.survivorCurrentMax = survivorCurrentMax;
     }
     
     /**
-     * @return the permGenCommitted
+     * @return the survivorCurrentCommitted
      */
-    public Long getPermGenCommitted() {
-        return permGenCommitted;
+    public Long getSurvivorCurrentCommitted() {
+        return survivorCurrentCommitted;
     }
     
     /**
-     * @param permGenCommitted the permGenCommitted to set
+     * @param survivorCurrentCommitted the survivorCurrentCommitted to set
      */
-    public void setPermGenCommitted(Long permGenCommitted) {
-        this.permGenCommitted = permGenCommitted;
+    public void setSurvivorCurrentCommitted(Long survivorCurrentCommitted) {
+        this.survivorCurrentCommitted = survivorCurrentCommitted;
     }
     
     /**
-     * @return the permGenUsed
+     * @return the survivorCurrentUsed
      */
-    public Long getPermGenUsed() {
-        return permGenUsed;
+    public Long getSurvivorCurrentUsed() {
+        return survivorCurrentUsed;
     }
     
     /**
-     * @param permGenUsed the permGenUsed to set
+     * @param survivorCurrentUsed the survivorCurrentUsed to set
      */
-    public void setPermGenUsed(Long permGenUsed) {
-        this.permGenUsed = permGenUsed;
+    public void setSurvivorCurrentUsed(Long survivorCurrentUsed) {
+        this.survivorCurrentUsed = survivorCurrentUsed;
     }
+    
+    /**
+     * @return the survivorPeakMax
+     */
+    public Long getSurvivorPeakMax() {
+        return survivorPeakMax;
+    }
+    
+    /**
+     * @param survivorPeakMax the survivorPeakMax to set
+     */
+    public void setSurvivorPeakMax(Long survivorPeakMax) {
+        this.survivorPeakMax = survivorPeakMax;
+    }
+    
+    /**
+     * @return the survivorPeakCommitted
+     */
+    public Long getSurvivorPeakCommitted() {
+        return survivorPeakCommitted;
+    }
+    
+    /**
+     * @param survivorPeakCommitted the survivorPeakCommitted to set
+     */
+    public void setSurvivorPeakCommitted(Long survivorPeakCommitted) {
+        this.survivorPeakCommitted = survivorPeakCommitted;
+    }
+    
+    /**
+     * @return the survivorPeakUsed
+     */
+    public Long getSurvivorPeakUsed() {
+        return survivorPeakUsed;
+    }
+    
+    /**
+     * @param survivorPeakUsed the survivorPeakUsed to set
+     */
+    public void setSurvivorPeakUsed(Long survivorPeakUsed) {
+        this.survivorPeakUsed = survivorPeakUsed;
+    }
+    
+    /**
+     * @return the oldGenCurrentMax
+     */
+    public Long getOldGenCurrentMax() {
+        return oldGenCurrentMax;
+    }
+    
+    /**
+     * @param oldGenCurrentMax the oldGenCurrentMax to set
+     */
+    public void setOldGenCurrentMax(Long oldGenCurrentMax) {
+        this.oldGenCurrentMax = oldGenCurrentMax;
+    }
+    
+    /**
+     * @return the oldGenCurrentCommitted
+     */
+    public Long getOldGenCurrentCommitted() {
+        return oldGenCurrentCommitted;
+    }
+    
+    /**
+     * @param oldGenCurrentCommitted the oldGenCurrentCommitted to set
+     */
+    public void setOldGenCurrentCommitted(Long oldGenCurrentCommitted) {
+        this.oldGenCurrentCommitted = oldGenCurrentCommitted;
+    }
+    
+    /**
+     * @return the oldGenCurrentUsed
+     */
+    public Long getOldGenCurrentUsed() {
+        return oldGenCurrentUsed;
+    }
+    
+    /**
+     * @param oldGenCurrentUsed the oldGenCurrentUsed to set
+     */
+    public void setOldGenCurrentUsed(Long oldGenCurrentUsed) {
+        this.oldGenCurrentUsed = oldGenCurrentUsed;
+    }
+    
+    /**
+     * @return the oldGenPeakMax
+     */
+    public Long getOldGenPeakMax() {
+        return oldGenPeakMax;
+    }
+    
+    /**
+     * @param oldGenPeakMax the oldGenPeakMax to set
+     */
+    public void setOldGenPeakMax(Long oldGenPeakMax) {
+        this.oldGenPeakMax = oldGenPeakMax;
+    }
+    
+    /**
+     * @return the oldGenPeakCommitted
+     */
+    public Long getOldGenPeakCommitted() {
+        return oldGenPeakCommitted;
+    }
+    
+    /**
+     * @param oldGenPeakCommitted the oldGenPeakCommitted to set
+     */
+    public void setOldGenPeakCommitted(Long oldGenPeakCommitted) {
+        this.oldGenPeakCommitted = oldGenPeakCommitted;
+    }
+    
+    /**
+     * @return the oldGenPeakUsed
+     */
+    public Long getOldGenPeakUsed() {
+        return oldGenPeakUsed;
+    }
+    
+    /**
+     * @param oldGenPeakUsed the oldGenPeakUsed to set
+     */
+    public void setOldGenPeakUsed(Long oldGenPeakUsed) {
+        this.oldGenPeakUsed = oldGenPeakUsed;
+    }
+    
+    /**
+     * @return the permGenCurrentMax
+     */
+    public Long getPermGenCurrentMax() {
+        return permGenCurrentMax;
+    }
+    
+    /**
+     * @param permGenCurrentMax the permGenCurrentMax to set
+     */
+    public void setPermGenCurrentMax(Long permGenCurrentMax) {
+        this.permGenCurrentMax = permGenCurrentMax;
+    }
+    
+    /**
+     * @return the permGenCurrentCommitted
+     */
+    public Long getPermGenCurrentCommitted() {
+        return permGenCurrentCommitted;
+    }
+    
+    /**
+     * @param permGenCurrentCommitted the permGenCurrentCommitted to set
+     */
+    public void setPermGenCurrentCommitted(Long permGenCurrentCommitted) {
+        this.permGenCurrentCommitted = permGenCurrentCommitted;
+    }
+    
+    /**
+     * @return the permGenCurrentUsed
+     */
+    public Long getPermGenCurrentUsed() {
+        return permGenCurrentUsed;
+    }
+    
+    /**
+     * @param permGenCurrentUsed the permGenCurrentUsed to set
+     */
+    public void setPermGenCurrentUsed(Long permGenCurrentUsed) {
+        this.permGenCurrentUsed = permGenCurrentUsed;
+    }
+    
+    /**
+     * @return the permGenPeakMax
+     */
+    public Long getPermGenPeakMax() {
+        return permGenPeakMax;
+    }
+    
+    /**
+     * @param permGenPeakMax the permGenPeakMax to set
+     */
+    public void setPermGenPeakMax(Long permGenPeakMax) {
+        this.permGenPeakMax = permGenPeakMax;
+    }
+    
+    /**
+     * @return the permGenPeakCommitted
+     */
+    public Long getPermGenPeakCommitted() {
+        return permGenPeakCommitted;
+    }
+    
+    /**
+     * @param permGenPeakCommitted the permGenPeakCommitted to set
+     */
+    public void setPermGenPeakCommitted(Long permGenPeakCommitted) {
+        this.permGenPeakCommitted = permGenPeakCommitted;
+    }
+    
+    /**
+     * @return the permGenPeakUsed
+     */
+    public Long getPermGenPeakUsed() {
+        return permGenPeakUsed;
+    }
+    
+    /**
+     * @param permGenPeakUsed the permGenPeakUsed to set
+     */
+    public void setPermGenPeakUsed(Long permGenPeakUsed) {
+        this.permGenPeakUsed = permGenPeakUsed;
+    }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "JavaMemoryInfo [jvmMaxMemory=" + jvmMaxMemory + ", jvmTotalUsedMemory=" + jvmTotalUsedMemory + ", codeCacheCurrentMax="
+                + codeCacheCurrentMax + ", codeCacheCurrentCommitted=" + codeCacheCurrentCommitted + ", codeCacheCurrentUsed="
+                + codeCacheCurrentUsed + ", codeCachePeakMax=" + codeCachePeakMax + ", codeCachePeakCommitted=" + codeCachePeakCommitted
+                + ", codeCachePeakUsed=" + codeCachePeakUsed + ", edenCurrentMax=" + edenCurrentMax + ", edenCurrentCommitted="
+                + edenCurrentCommitted + ", edenCurrentUsed=" + edenCurrentUsed + ", edenPeakMax=" + edenPeakMax + ", edenPeakCommitted="
+                + edenPeakCommitted + ", edenPeakUsed=" + edenPeakUsed + ", survivorCurrentMax=" + survivorCurrentMax
+                + ", survivorCurrentCommitted=" + survivorCurrentCommitted + ", survivorCurrentUsed=" + survivorCurrentUsed
+                + ", survivorPeakMax=" + survivorPeakMax + ", survivorPeakCommitted=" + survivorPeakCommitted + ", survivorPeakUsed="
+                + survivorPeakUsed + ", oldGenCurrentMax=" + oldGenCurrentMax + ", oldGenCurrentCommitted=" + oldGenCurrentCommitted
+                + ", oldGenCurrentUsed=" + oldGenCurrentUsed + ", oldGenPeakMax=" + oldGenPeakMax + ", oldGenPeakCommitted="
+                + oldGenPeakCommitted + ", oldGenPeakUsed=" + oldGenPeakUsed + ", permGenCurrentMax=" + permGenCurrentMax
+                + ", permGenCurrentCommitted=" + permGenCurrentCommitted + ", permGenCurrentUsed=" + permGenCurrentUsed
+                + ", permGenPeakMax=" + permGenPeakMax + ", permGenPeakCommitted=" + permGenPeakCommitted + ", permGenPeakUsed="
+                + permGenPeakUsed + "]";
+    }
+    
     
 }
