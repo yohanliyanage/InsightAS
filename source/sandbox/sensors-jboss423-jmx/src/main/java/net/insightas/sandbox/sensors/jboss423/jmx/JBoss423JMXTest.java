@@ -20,6 +20,7 @@ import javax.management.ObjectName;
 import javax.naming.CommunicationException;
 import javax.naming.InitialContext;
 
+import net.insightas.sandbox.sensors.api.JavaMemoryInfo;
 import net.insightas.sandbox.sensors.api.ServerInfo;
 import net.insightas.sandbox.sensors.exception.SensorConnectionFailureException;
 import net.insightas.sandbox.sensors.jboss423.jmx.JBossJMXConstants.JNDIConstants;
@@ -40,7 +41,7 @@ public class JBoss423JMXTest {
      * 
      */
     private static final String JBOSS_JMX_ADAPTER = "jmx/invoker/RMIAdaptor";
-
+    
     private static final Log LOG = LogFactory.getLog(JBoss423JMXTest.class);
     
     private static final String JBOSS_JNDI_URL = "jnp://127.0.0.1:1099";
@@ -95,12 +96,26 @@ public class JBoss423JMXTest {
         serverInfo.setCpuCount(JMXUtil.getStringAttribute(server, mbServerInfo, "AvailableProcessors"));
         
         System.out.println(serverInfo);
-//        // Gather Heap Information
-//        String strMem = (server.invoke(new ObjectName("jboss.system:type=ServerInfo"), "listMemoryPools", new Object[] { Boolean.FALSE },
-//                new String[] { "boolean" })).toString();
-//        
-//        System.out.println(strMem);
         
+        // // Gather Heap Information
+        String strHeapXML = (JMXUtil.invokeOperation(server, mbServerInfo, "listMemoryPools", new Object[] { Boolean.FALSE },
+                new String[] { "boolean" })).toString();
+        
+        JavaMemoryInfo javaMemInfo = new JavaMemoryInfo();
+        javaMemInfo.setJvmMaxMemory(JMXUtil.getLongAttribute(server, mbServerInfo, "MaxMemory"));
+        javaMemInfo.setJvmTotalUsedMemory(JMXUtil.getLongAttribute(server, mbServerInfo, "TotalMemory"));
+        
+        extractHeapInfo(strHeapXML, javaMemInfo);
+    }
+    
+    /**
+     * Parses the Heap XML and extracts Heap Information.
+     * 
+     * @param strHeapXML
+     * @param javaMemInfo
+     */
+    private static void extractHeapInfo(String strHeapXML, JavaMemoryInfo javaMemInfo) {
+        System.out.println(strHeapXML);
     }
     
 }
