@@ -13,6 +13,7 @@
 
 package net.insightas.sandbox.sensors.api;
 
+import net.insightas.sandbox.sensors.dto.SensorData;
 import net.insightas.sandbox.sensors.exception.SensorFailureException;
 
 

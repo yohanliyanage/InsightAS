@@ -11,7 +11,7 @@
  * and limitations under the License.
  */
 
-package net.insightas.sandbox.sensors.api;
+package net.insightas.sandbox.sensors.dto;
 
 import java.util.HashMap;
 import java.util.Map;
