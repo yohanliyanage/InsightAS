@@ -23,7 +23,9 @@ import java.util.List;
  * 
  * @author Yohan Liyanage (yohan at computer dot org)
  * 
+ * @deprecated Replaced with a Map.
  */
+@Deprecated
 public class OperatingSystemInfo implements Serializable {
     
     private static final long serialVersionUID = -517609253047922455L;

@@ -22,7 +22,9 @@ import java.io.Serializable;
  * 
  * @author Yohan Liyanage (yohan at computer dot org)
  * 
+ * @deprecated Replaced with a Map.
  */
+@Deprecated
 public class JavaMemoryInfo implements Serializable {
     
     private static final long serialVersionUID = 1965067145015851335L;

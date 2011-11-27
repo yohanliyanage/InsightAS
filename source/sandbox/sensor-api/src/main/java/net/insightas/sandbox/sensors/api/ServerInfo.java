@@ -22,7 +22,9 @@ import java.io.Serializable;
  * 
  * @author Yohan Liyanage (yohan at computer dot org)
  * 
+ * @deprecated Replaced with a Map.
  */
+@Deprecated
 public class ServerInfo implements Serializable {
     
     private static final long serialVersionUID = 5524787852198805940L;
