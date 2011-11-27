@@ -106,7 +106,7 @@ public class JBoss423JMXTest {
                 JMXUtil.getStringAttribute(server, mbServerInfo, "HostAddress"));
         sensorData.add(SensorAttributeConstants.ServerConstants.CPU_COUNT,
                 JMXUtil.getStringAttribute(server, mbServerInfo, "AvailableProcessors"));
-        
+         
         sensorData.add(SensorAttributeConstants.JavaConstants.JVM_NAME, JMXUtil.getStringAttribute(server, mbServerInfo, "JavaVMName"));
         sensorData.add(SensorAttributeConstants.JavaConstants.JAVA_VERSION, JMXUtil.getStringAttribute(server, mbServerInfo, "JavaVersion"));
         sensorData.add(SensorAttributeConstants.JavaConstants.JAVA_VENDOR, JMXUtil.getStringAttribute(server, mbServerInfo, "JavaVendor"));
