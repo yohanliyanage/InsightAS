@@ -15,8 +15,9 @@ package net.insightas.sandbox.sensors.jboss423.jmx;
 
 /**
  * @author Yohan Liyanage (yohan at computer dot org)
- * 
+ * @deprecated No longer used.
  */
+@Deprecated
 public class HeapStatDTO {
     
     private Long peakUsed;

@@ -13,7 +13,9 @@
 
 package net.insightas.sandbox.sensors.jboss423.jmx;
 
+import static net.insightas.sandbox.sensors.constants.SensorAttributeConstants.JavaConstants.*;
 import java.io.StringReader;
+import java.util.Arrays;
 import java.util.Properties;
 
 import javax.management.MBeanServerConnection;
@@ -27,12 +29,11 @@ import javax.xml.transform.dom.DOMResult;
 import javax.xml.transform.sax.SAXSource;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
-import net.insightas.sandbox.sensors.api.JavaMemoryInfo;
-import net.insightas.sandbox.sensors.api.ServerInfo;
+import net.insightas.sandbox.sensors.api.SensorData;
+import net.insightas.sandbox.sensors.constants.SensorAttributeConstants;
 import net.insightas.sandbox.sensors.exception.SensorConnectionFailureException;
 import net.insightas.sandbox.sensors.exception.SensorFailureException;
 import net.insightas.sandbox.sensors.jboss423.jmx.JBossJMXConstants.JNDIConstants;
@@ -98,32 +99,32 @@ public class JBoss423JMXTest {
         // ServerInfo MBean
         final ObjectName mbServerInfo = new ObjectName("jboss.system:type=ServerInfo");
         
-        // Gather Server Information
-        ServerInfo serverInfo = new ServerInfo();
+        SensorData sensorData = new SensorData();
         
-        serverInfo.setHostAddress(JMXUtil.getStringAttribute(server, mbServerInfo, "HostAddress"));
-        serverInfo.setHostName(JMXUtil.getStringAttribute(server, mbServerInfo, "HostName"));
-        serverInfo.setJavaVendor(JMXUtil.getStringAttribute(server, mbServerInfo, "JavaVendor"));
-        serverInfo.setJavaVersion(JMXUtil.getStringAttribute(server, mbServerInfo, "JavaVersion"));
-        serverInfo.setJvmName(JMXUtil.getStringAttribute(server, mbServerInfo, "JavaVMName"));
-        serverInfo.setOsArchitecture(JMXUtil.getStringAttribute(server, mbServerInfo, "OSArch"));
-        serverInfo.setOsName(JMXUtil.getStringAttribute(server, mbServerInfo, "OSName"));
-        serverInfo.setOsVersion(JMXUtil.getStringAttribute(server, mbServerInfo, "OSVersion"));
-        serverInfo.setCpuCount(JMXUtil.getStringAttribute(server, mbServerInfo, "AvailableProcessors"));
+        sensorData.add(SensorAttributeConstants.ServerConstants.HOST_NAME, JMXUtil.getStringAttribute(server, mbServerInfo, "HostName"));
+        sensorData.add(SensorAttributeConstants.ServerConstants.HOST_ADDRESS,
+                JMXUtil.getStringAttribute(server, mbServerInfo, "HostAddress"));
+        sensorData.add(SensorAttributeConstants.ServerConstants.CPU_COUNT,
+                JMXUtil.getStringAttribute(server, mbServerInfo, "AvailableProcessors"));
         
-        LOG.info("Server Info : " + serverInfo);
+        sensorData.add(SensorAttributeConstants.JavaConstants.JVM_NAME, JMXUtil.getStringAttribute(server, mbServerInfo, "JavaVMName"));
+        sensorData.add(SensorAttributeConstants.JavaConstants.JAVA_VERSION, JMXUtil.getStringAttribute(server, mbServerInfo, "JavaVersion"));
+        sensorData.add(SensorAttributeConstants.JavaConstants.JAVA_VENDOR, JMXUtil.getStringAttribute(server, mbServerInfo, "JavaVendor"));
+        sensorData.add(SensorAttributeConstants.JavaConstants.JVM_MAX_MEMORY, JMXUtil.getStringAttribute(server, mbServerInfo, "MaxMemory"));
+        sensorData.add(SensorAttributeConstants.JavaConstants.JVM_USED_MEMORY,
+                JMXUtil.getStringAttribute(server, mbServerInfo, "TotalMemory"));
+        
+        sensorData.add(SensorAttributeConstants.OSConstants.OS_NAME, JMXUtil.getStringAttribute(server, mbServerInfo, "OSName"));
+        sensorData.add(SensorAttributeConstants.OSConstants.OS_VERSION, JMXUtil.getStringAttribute(server, mbServerInfo, "OSVersion"));
+        sensorData.add(SensorAttributeConstants.OSConstants.OS_ARCHITECTURE, JMXUtil.getStringAttribute(server, mbServerInfo, "OSArch"));
         
         // // Gather Heap Information
         String strHeapXML = (JMXUtil.invokeOperation(server, mbServerInfo, "listMemoryPools", new Object[] { Boolean.FALSE },
                 new String[] { "boolean" })).toString();
         
-        JavaMemoryInfo javaMemInfo = new JavaMemoryInfo();
-        javaMemInfo.setJvmMaxMemory(JMXUtil.getLongAttribute(server, mbServerInfo, "MaxMemory"));
-        javaMemInfo.setJvmTotalUsedMemory(JMXUtil.getLongAttribute(server, mbServerInfo, "TotalMemory"));
-        
-        extractHeapInfo(strHeapXML, javaMemInfo);
-        
-        LOG.info("Java Memory Info : " + javaMemInfo);
+        sensorData.addAllSensorData(extractHeapInfo(strHeapXML));
+
+        LOG.info("Sensor Data Collected : " + sensorData);
     }
     
     /**
@@ -132,7 +133,9 @@ public class JBoss423JMXTest {
      * @param strHeapXML
      * @param javaMemInfo
      */
-    private static void extractHeapInfo(String strHeapXML, JavaMemoryInfo javaMemInfo) throws SensorFailureException {
+    private static SensorData extractHeapInfo(String strHeapXML) throws SensorFailureException {
+        
+        SensorData sensorData = new SensorData();
         
         // Replace <br> with semi-colon for easier string processing later.
         strHeapXML = strHeapXML.replaceAll("<br>", " ; ");
@@ -165,85 +168,81 @@ public class JBoss423JMXTest {
             // Generate XPath for each segment
             XPath xpath = XPathFactory.newInstance().newXPath();
             
-            XPathExpression xpCodeCache = xpath.compile("/html/body/blockquote/blockquote[1]");
-            XPathExpression xpEden = xpath.compile("/html/body/blockquote/blockquote[2]");
-            XPathExpression xpSurvivor = xpath.compile("/html/body/blockquote/blockquote[3]");
-            XPathExpression xpOldGen = xpath.compile("/html/body/blockquote/blockquote[4]");
-            XPathExpression xpPermGen = xpath.compile("/html/body/blockquote/blockquote[5]");
+            String strCodeCache = (String) xpath.compile("/html/body/blockquote/blockquote[1]").evaluate(result.getNode(),
+                    XPathConstants.STRING);
+            String strEden = (String) xpath.compile("/html/body/blockquote/blockquote[2]").evaluate(result.getNode(), XPathConstants.STRING);
+            String strSurvivor = (String) xpath.compile("/html/body/blockquote/blockquote[3]").evaluate(result.getNode(),
+                    XPathConstants.STRING);
+            String strOldGen = (String) xpath.compile("/html/body/blockquote/blockquote[4]").evaluate(result.getNode(),
+                    XPathConstants.STRING);
+            String strPermGen = (String) xpath.compile("/html/body/blockquote/blockquote[5]").evaluate(result.getNode(),
+                    XPathConstants.STRING);
             
-            HeapStatDTO codeCacheStats = extractStatFromString((String) xpCodeCache.evaluate(result.getNode(), XPathConstants.STRING));
-            HeapStatDTO edenStats = extractStatFromString((String) xpEden.evaluate(result.getNode(), XPathConstants.STRING));
-            HeapStatDTO survivorStats = extractStatFromString((String) xpSurvivor.evaluate(result.getNode(), XPathConstants.STRING));
-            HeapStatDTO oldGenStats = extractStatFromString((String) xpOldGen.evaluate(result.getNode(), XPathConstants.STRING));
-            HeapStatDTO permGenStats = extractStatFromString((String) xpPermGen.evaluate(result.getNode(), XPathConstants.STRING));
+            // Extract Code Cache
+            extractStatFromString(strCodeCache, sensorData, new String[] { CODE_CACHE_PEAK_USED, CODE_CACHE_PEAK_COMMITTED,
+                    CODE_CACHE_PEAK_MAX, CODE_CACHE_CUR_USED, CODE_CACHE_CUR_COMMITTED, CODE_CACHE_CUR_MAX });
             
-            javaMemInfo.setCodeCacheCurrentCommitted(codeCacheStats.getCurrentCommitted());
-            javaMemInfo.setCodeCacheCurrentMax(codeCacheStats.getCurrentMax());
-            javaMemInfo.setCodeCacheCurrentUsed(codeCacheStats.getCurrentUsed());
-            javaMemInfo.setCodeCachePeakCommitted(codeCacheStats.getPeakCommitted());
-            javaMemInfo.setCodeCachePeakMax(codeCacheStats.getPeakMax());
-            javaMemInfo.setCodeCachePeakUsed(codeCacheStats.getPeakUsed());
+            // Extract Eden Space
+            extractStatFromString(strEden, sensorData, new String[] { EDEN_PEAK_USED, EDEN_PEAK_COMMITTED, EDEN_PEAK_MAX, EDEN_CUR_USED,
+                    EDEN_CUR_COMMITTED, EDEN_CUR_MAX });
             
-            javaMemInfo.setEdenCurrentCommitted(edenStats.getCurrentCommitted());
-            javaMemInfo.setEdenCurrentMax(edenStats.getCurrentMax());
-            javaMemInfo.setEdenCurrentUsed(edenStats.getCurrentUsed());
-            javaMemInfo.setEdenPeakCommitted(edenStats.getPeakCommitted());
-            javaMemInfo.setEdenPeakMax(edenStats.getPeakMax());
-            javaMemInfo.setEdenPeakUsed(edenStats.getPeakUsed());
+            // Extract Survivor Space
+            extractStatFromString(strSurvivor, sensorData, new String[] { SURVIVOR_PEAK_USED, SURVIVOR_PEAK_COMMITTED, SURVIVOR_PEAK_MAX,
+                    SURVIVOR_CUR_USED, SURVIVOR_CUR_COMMITTED, SURVIVOR_CUR_MAX });
             
-            javaMemInfo.setSurvivorCurrentCommitted(survivorStats.getCurrentCommitted());
-            javaMemInfo.setSurvivorCurrentMax(survivorStats.getCurrentMax());
-            javaMemInfo.setSurvivorCurrentUsed(survivorStats.getCurrentUsed());
-            javaMemInfo.setSurvivorPeakCommitted(survivorStats.getPeakCommitted());
-            javaMemInfo.setSurvivorPeakMax(survivorStats.getPeakMax());
-            javaMemInfo.setSurvivorPeakUsed(survivorStats.getPeakUsed());
+            // Extract Old Gen
+            extractStatFromString(strOldGen, sensorData, new String[] { OLD_GEN_PEAK_USED, OLD_GEN_PEAK_COMMITTED, OLD_GEN_PEAK_MAX,
+                    OLD_GEN_CUR_USED, OLD_GEN_CUR_COMMITTED, OLD_GEN_CUR_MAX });
             
-            javaMemInfo.setOldGenCurrentCommitted(oldGenStats.getCurrentCommitted());
-            javaMemInfo.setOldGenCurrentMax(oldGenStats.getCurrentMax());
-            javaMemInfo.setOldGenCurrentUsed(oldGenStats.getCurrentUsed());
-            javaMemInfo.setOldGenPeakCommitted(oldGenStats.getPeakCommitted());
-            javaMemInfo.setOldGenPeakMax(oldGenStats.getPeakMax());
-            javaMemInfo.setOldGenPeakUsed(oldGenStats.getPeakUsed());
-            
-            javaMemInfo.setPermGenCurrentCommitted(permGenStats.getCurrentCommitted());
-            javaMemInfo.setPermGenCurrentMax(permGenStats.getCurrentMax());
-            javaMemInfo.setPermGenCurrentUsed(permGenStats.getCurrentUsed());
-            javaMemInfo.setPermGenPeakCommitted(permGenStats.getPeakCommitted());
-            javaMemInfo.setPermGenPeakMax(permGenStats.getPeakMax());
-            javaMemInfo.setPermGenPeakUsed(permGenStats.getPeakUsed());
+            // Extract Perm Gen
+            extractStatFromString(strPermGen, sensorData, new String[] { PERM_GEN_PEAK_USED, PERM_GEN_PEAK_COMMITTED, PERM_GEN_PEAK_MAX,
+                    PERM_GEN_CUR_USED, PERM_GEN_CUR_COMMITTED, PERM_GEN_CUR_MAX });
             
         } catch (XPathExpressionException e) {
             LOG.error("XPathExpressionException when parsing Sensor XML - " + e.getMessage());
             throw new SensorFailureException("XPathExpressionException when parsing Sensor XML", e);
         }
         
+        return sensorData;
+        
     }
-
+    
     /**
-     * @param strCodeCache
+     * @param strRawResponse
      * @return
      */
-    private static HeapStatDTO extractStatFromString(String strCodeCache) {
-
-        HeapStatDTO stat = new HeapStatDTO();
+    private static void extractStatFromString(String strRawResponse, SensorData sensorData, String[] attributes) {
+        
+        // Verify that all attributes are passed in.
+        // Following should be passed in order : Peak Used, Peak Committed, Peak Max, Current Used, Current Committed, Current Max.
+        
+        if (attributes.length != 6) {
+            LOG.warn("Extract Heap Stats Failed. All six attribute names are not provided. Attributes : " + Arrays.toString(attributes));
+            throw new IllegalArgumentException(
+                    "Invalid attributes argument (String[]). All six attributes for the given memory segment is expected.");
+        }
         
         // Replace comma with colon for easier segmenting
-        strCodeCache = strCodeCache.replaceAll(",", ":");
+        strRawResponse = strRawResponse.replaceAll(",", ":");
         
-        // Split segments
-        String[] segments = strCodeCache.split(";");
-        String[] peakSegments = segments[0].split(":");
-        String[] currentSgements = segments[1].split(":");
+        // Split Raw Tokens (Peak & Current) by splitting using semi-colon
+        String[] rawTokens = strRawResponse.split(";");
         
-        stat.setPeakUsed(Long.valueOf(peakSegments[4].trim()));
-        stat.setPeakCommitted(Long.valueOf(peakSegments[6].trim()));
-        stat.setPeakMax(Long.valueOf(peakSegments[8].trim()));
+        // Get Peak Segments by splitting on colon
+        String[] peakSegments = rawTokens[0].split(":");
         
-        stat.setCurrentUsed(Long.valueOf(currentSgements[4].trim()));
-        stat.setCurrentCommitted(Long.valueOf(currentSgements[6].trim()));
-        stat.setCurrentMax(Long.valueOf(currentSgements[8].trim()));
+        // Get Current Segments by splitting on colon
+        String[] currentSgements = rawTokens[1].split(":");
         
-        return stat;
+        // Extract & Populate Sensor Data
+        sensorData.add(attributes[0], peakSegments[4].trim()); // Peak Used
+        sensorData.add(attributes[1], peakSegments[6].trim()); // Peak Committed
+        sensorData.add(attributes[2], peakSegments[8].trim()); // Peak Max
+        
+        sensorData.add(attributes[3], currentSgements[4].trim()); // Current Used
+        sensorData.add(attributes[4], currentSgements[6].trim()); // Current Committed
+        sensorData.add(attributes[5], currentSgements[8].trim()); // Current Max
+        
     }
     
 }
