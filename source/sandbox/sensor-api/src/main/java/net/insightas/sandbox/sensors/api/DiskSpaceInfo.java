@@ -85,5 +85,16 @@ public class DiskSpaceInfo implements Serializable {
     public void setTotalMB(Integer totalMB) {
         this.totalMB = totalMB;
     }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "DiskSpaceInfo [diskName=" + diskName + ", mountPoint=" + mountPoint + ", utilizedMB=" + utilizedMB + ", totalMB=" + totalMB
+                + "]";
+    }
+    
+    
     
 }
