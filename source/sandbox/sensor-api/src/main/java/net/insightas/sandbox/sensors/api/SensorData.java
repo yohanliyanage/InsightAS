@@ -27,13 +27,14 @@ import java.util.Set;
  */
 public class SensorData {
     
-    private Map<String, Object> sensorDataMap = new HashMap<String, Object>();
+    private Map<String, Object> sensorDataMap;
     
     /**
      * Constructs a SensorData object which has an empty sensor data set.
      */
     public SensorData() {
         super();
+        sensorDataMap = new HashMap<String, Object>();
     }
     
     /**
