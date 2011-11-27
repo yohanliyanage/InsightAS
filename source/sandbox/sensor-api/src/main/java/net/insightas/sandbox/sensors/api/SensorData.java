@@ -105,4 +105,13 @@ public class SensorData {
     public void addAllSensorData(SensorData data) {
         this.sensorDataMap.putAll(data.sensorDataMap);
     }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "SensorData [" + sensorDataMap + "]";
+    }
+
 }
