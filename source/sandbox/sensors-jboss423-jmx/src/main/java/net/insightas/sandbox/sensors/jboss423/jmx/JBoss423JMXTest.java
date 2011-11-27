@@ -32,8 +32,8 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
-import net.insightas.sandbox.sensors.api.SensorData;
 import net.insightas.sandbox.sensors.constants.SensorAttributeConstants;
+import net.insightas.sandbox.sensors.dto.SensorData;
 import net.insightas.sandbox.sensors.exception.SensorConnectionFailureException;
 import net.insightas.sandbox.sensors.exception.SensorFailureException;
 import net.insightas.sandbox.sensors.jboss423.jmx.JBossJMXConstants.JNDIConstants;
