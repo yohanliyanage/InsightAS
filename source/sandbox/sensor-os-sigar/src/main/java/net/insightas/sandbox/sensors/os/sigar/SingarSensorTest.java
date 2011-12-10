@@ -23,6 +23,7 @@ import org.hyperic.sigar.Mem;
 import org.hyperic.sigar.NetInterfaceConfig;
 import org.hyperic.sigar.Sigar;
 import org.hyperic.sigar.SigarException;
+import org.hyperic.sigar.SysInfo;
 
 
 /**
@@ -36,6 +37,18 @@ public class SingarSensorTest {
         System.setProperty(SigarConstants.SIGAR_PATH, new File(SigarConstants.SIGAR_PATH_DEFAULT).getAbsolutePath());
         Sigar sigar = new Sigar();
 
+        // OS Info
+        SysInfo sysInfo = new SysInfo();
+        sysInfo.gather(sigar);
+        
+        System.out.println("OS Name : " + sysInfo.getName());
+        System.out.println("OS Vendor : " + sysInfo.getVendor());
+        System.out.println("OS Version : " + sysInfo.getVersion());
+        System.out.println("OS Architecture : " + sysInfo.getArch());
+        System.out.println("Description : " + sysInfo.getDescription());
+        System.out.println("Patches : " + sysInfo.getPatchLevel());
+        System.out.println();
+        
         // CPU Info
         CpuInfo[] cpuInfoArray = sigar.getCpuInfoList();
 
@@ -46,6 +59,7 @@ public class SingarSensorTest {
             System.out.println("\tTotal Cores : " + cpuInfo.getTotalCores());
             System.out.println("\tCache Size : " + cpuInfo.getCacheSize() + " KB");
         }
+        
         
         // CPU Usage
         CpuPerc cpuPerc = sigar.getCpuPerc();
@@ -89,3 +103,4 @@ public class SingarSensorTest {
     }
     
 }
+
