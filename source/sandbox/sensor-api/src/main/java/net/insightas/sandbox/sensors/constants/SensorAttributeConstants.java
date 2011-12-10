@@ -274,6 +274,21 @@ public final class SensorAttributeConstants {
         public static final String OS_ARCHITECTURE = "OS_ARCHITECTURE";
         
         /**
+         * Operating System Vendor.
+         */
+        public static final String OS_VENDOR = "OS_VENDOR";
+        
+        /**
+         * Operating System Description (Additional Information).
+         */
+        public static final String OS_DESCRIPTION = "OS_DESCRIPTION";
+        
+        /**
+         * Operating System Patch Information.
+         */
+        public static final String OS_PATCH_INFO = "OS_PATCH_INFO";
+        
+        /**
          * Private Constructor. No instantiation.
          */
         private OSConstants() {
@@ -282,11 +297,31 @@ public final class SensorAttributeConstants {
     }
     
     public static final class CPUConstants {
+
         /**
-         * Current CPU Utilization (Percentage).
+         * CPU Idle Percentage.
          */
-        public static final String CURRENT_CPU_UTILIZATION = "CURRENT_CPU_UTILIZATION";
+        public static final String CPU_IDLE = "CPU_IDLE";
         
+        /**
+         * CPU Usage - User Processes - Percentage.
+         */
+        public static final String CPU_USAGE_USER = "CPU_USAGE_USER";
+        
+        /**
+         * CPU Usage - System Processes (Kernel) - Percentage.
+         */
+        public static final String CPU_USAGE_SYSTEM = "CPU_USAGE_SYSTEM";
+        
+        /**
+         * Total CPU Usage - Percentage.
+         */
+        public static final String CPU_USAGE_TOTAL = "CPU_USAGE_TOTAL";
+        
+        /**
+         * CPU Information DTO Holder.
+         */
+        public static final String CPU_INFO_DATA = "CPU_INFO_DATA";
     }
     
     public static final class DiskConstants {
@@ -300,9 +335,19 @@ public final class SensorAttributeConstants {
     
     public static final class MemoryConstants {
         /**
-         * Current Memory Utilization (Percentage).
+         * Actual Memory Usage (MB). Note that the rest of the used memory (Total - Free - Actual Used) are for caching.
          */
-        public static final String MEMORY_UTILIZATION = "MEMORY_UTILIZATION";
+        public static final String MEM_ACTUAL_USED = "MEM_ACTUAL_USED";
+        
+        /**
+         * Total Memory (MB).
+         */
+        public static final String TOTAL_MEMORY = "TOTAL_MEMORY";
+        
+        /**
+         * Free Memory (MB). 
+         */
+        public static final String FREE_MEMORY = "FREE_MEMORY";
     }
     
     /**
