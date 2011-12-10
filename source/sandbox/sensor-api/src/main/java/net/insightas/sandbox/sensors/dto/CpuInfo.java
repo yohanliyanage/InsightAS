@@ -96,5 +96,52 @@ public class CpuInfo {
     public void setCacheSizeKB(int cacheSizeKB) {
         this.cacheSizeKB = cacheSizeKB;
     }
+
+    
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + cacheSizeKB;
+        result = prime * result + clockSpeedMHz;
+        result = prime * result + cores;
+        result = prime * result + ((model == null) ? 0 : model.hashCode());
+        result = prime * result + ((vendor == null) ? 0 : vendor.hashCode());
+        return result;
+    }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null) return false;
+        if (getClass() != obj.getClass()) return false;
+        CpuInfo other = (CpuInfo) obj;
+        if (cacheSizeKB != other.cacheSizeKB) return false;
+        if (clockSpeedMHz != other.clockSpeedMHz) return false;
+        if (cores != other.cores) return false;
+        if (model == null) {
+            if (other.model != null) return false;
+        } else if (!model.equals(other.model)) return false;
+        if (vendor == null) {
+            if (other.vendor != null) return false;
+        } else if (!vendor.equals(other.vendor)) return false;
+        return true;
+    }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "CpuInfo [vendor=" + vendor + ", model=" + model + ", clockSpeedMHz=" + clockSpeedMHz + ", cores=" + cores
+                + ", cacheSizeKB=" + cacheSizeKB + "]";
+    }
+    
     
 }
