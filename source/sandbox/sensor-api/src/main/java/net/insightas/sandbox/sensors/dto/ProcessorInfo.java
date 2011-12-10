@@ -19,7 +19,7 @@ package net.insightas.sandbox.sensors.dto;
  * @author Yohan Liyanage (yohan at computer dot org)
  * 
  */
-public class CpuInfo {
+public class ProcessorInfo {
     
     private String vendor;
     private String model;
@@ -121,7 +121,7 @@ public class CpuInfo {
         if (this == obj) return true;
         if (obj == null) return false;
         if (getClass() != obj.getClass()) return false;
-        CpuInfo other = (CpuInfo) obj;
+        ProcessorInfo other = (ProcessorInfo) obj;
         if (cacheSizeKB != other.cacheSizeKB) return false;
         if (clockSpeedMHz != other.clockSpeedMHz) return false;
         if (cores != other.cores) return false;
