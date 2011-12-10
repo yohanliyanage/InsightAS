@@ -21,7 +21,7 @@ import java.io.Serializable;
  * @author Yohan Liyanage (yohan at computer dot org)
  * 
  */
-public class DiskSpaceInfo implements Serializable {
+public class FileSystemInfo implements Serializable {
     
     private static final long serialVersionUID = 6218143495061921076L;
     

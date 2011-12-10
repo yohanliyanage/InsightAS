@@ -339,19 +339,19 @@ public final class SensorAttributeConstants {
     }
     
     /**
-     * Disk Constants.
+     * File System Constants.
      * 
      * @author Yohan Liyanage (yohan at computer dot org)
      *
      */
-    public static final class DiskConstants {
+    public static final class FileSystemConstants {
 
         /**
-         * Current Disk Utilization (List of DiskSpaceInfo objects).
+         * Current File System Utilization Information. (List of DiskSpaceInfo objects).
          */
-        public static final String DISK_UTLIZATION_DATA = "DISK_UTILIZATION_DATA";
+        public static final String FS_DATA = "FS_DATA";
         
-        private DiskConstants() {
+        private FileSystemConstants() {
             // No instantiation
         }
     }

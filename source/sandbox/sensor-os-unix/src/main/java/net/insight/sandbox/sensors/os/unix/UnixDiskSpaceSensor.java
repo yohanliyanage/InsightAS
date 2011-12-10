@@ -23,7 +23,7 @@ import java.util.Scanner;
 
 import net.insightas.sandbox.sensors.api.Sensor;
 import net.insightas.sandbox.sensors.constants.SensorAttributeConstants;
-import net.insightas.sandbox.sensors.dto.DiskSpaceInfo;
+import net.insightas.sandbox.sensors.dto.FileSystemInfo;
 import net.insightas.sandbox.sensors.dto.SensorData;
 import net.insightas.sandbox.sensors.exception.SensorFailureException;
 
@@ -50,7 +50,7 @@ public class UnixDiskSpaceSensor implements Sensor {
         LOG.info("[UnixDiskSpaceSensor] Collecting Disk Space Data...");
         
         SensorData data = new SensorData();
-        data.add(SensorAttributeConstants.DiskConstants.DISK_UTLIZATION_DATA, collectDiskSpaceStatistics());
+        data.add(SensorAttributeConstants.FileSystemConstants.FS_DATA, collectDiskSpaceStatistics());
         return data;
     }
 
@@ -60,7 +60,7 @@ public class UnixDiskSpaceSensor implements Sensor {
      * @return a list of DiskSpaceInfo objects, each representing a partition / disk in the system. 
      * @throws SensorFailureException if application fails to parse information.
      */
-    private List<DiskSpaceInfo> collectDiskSpaceStatistics() throws SensorFailureException {
+    private List<FileSystemInfo> collectDiskSpaceStatistics() throws SensorFailureException {
         
         BufferedReader bufReader = null;
         
@@ -84,7 +84,7 @@ public class UnixDiskSpaceSensor implements Sensor {
             // TODO : This implementation fails if the Disk Capacity Header is smaller than the actual size data (because we are using headers to determine the boundaries). 
             // Need to come up with a better implementation of this.
             
-            List<DiskSpaceInfo> diskList = new ArrayList<DiskSpaceInfo>();
+            List<FileSystemInfo> diskList = new ArrayList<FileSystemInfo>();
             int lineCount = 0;
             
             String line = null;
@@ -169,17 +169,17 @@ public class UnixDiskSpaceSensor implements Sensor {
     }
 
     /**
-     * Processes a df -k output line to extract data and populate to a {@link DiskSpaceInfo} instance.
+     * Processes a df -k output line to extract data and populate to a {@link FileSystemInfo} instance.
      * 
      * @param line df -k output line 
      * @param tokenStartIndices token start position indexes
-     * @return {@link DiskSpaceInfo} instance
+     * @return {@link FileSystemInfo} instance
      */
-    private DiskSpaceInfo processDiskInfoLine(String line, int[] tokenStartIndices) {
+    private FileSystemInfo processDiskInfoLine(String line, int[] tokenStartIndices) {
         
         try {
             
-            DiskSpaceInfo info = new DiskSpaceInfo();
+            FileSystemInfo info = new FileSystemInfo();
             
             info.setDiskName(line.substring(tokenStartIndices[0], tokenStartIndices[1]).trim());
             info.setTotalMB(Long.valueOf(line.substring(tokenStartIndices[1], tokenStartIndices[2]).trim()));
