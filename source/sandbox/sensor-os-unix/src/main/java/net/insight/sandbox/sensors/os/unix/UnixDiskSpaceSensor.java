@@ -183,7 +183,7 @@ public class UnixDiskSpaceSensor implements Sensor {
             info.setDiskName(line.substring(tokenStartIndices[0], tokenStartIndices[1]).trim());
             info.setTotalMB(Integer.valueOf(line.substring(tokenStartIndices[1], tokenStartIndices[2]).trim()));
             info.setUtilizedMB(Integer.valueOf(line.substring(tokenStartIndices[2], tokenStartIndices[3]).trim()));
-            info.setMountPoint(line.substring(tokenStartIndices[5]));
+            info.setLocation(line.substring(tokenStartIndices[5]));
             
             if (LOG.isDebugEnabled()) {
                 LOG.debug("[UnixDiskSpaceSensor] Collected Disk Info : " + info);

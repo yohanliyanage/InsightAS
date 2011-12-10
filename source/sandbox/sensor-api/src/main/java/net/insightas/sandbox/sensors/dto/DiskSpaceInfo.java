@@ -26,7 +26,8 @@ public class DiskSpaceInfo implements Serializable {
     private static final long serialVersionUID = 6218143495061921076L;
     
     private String diskName;
-    private String mountPoint;
+    private String location;
+    private String type;
     private Integer utilizedMB;
     private Integer totalMB;
     
@@ -44,20 +45,22 @@ public class DiskSpaceInfo implements Serializable {
         this.diskName = diskName;
     }
     
-    /**
-     * @return the mountPoint
-     */
-    public String getMountPoint() {
-        return mountPoint;
-    }
     
     /**
-     * @param mountPoint the mountPoint to set
+     * @return the location
      */
-    public void setMountPoint(String mountPoint) {
-        this.mountPoint = mountPoint;
+    public String getLocation() {
+        return location;
     }
+
     
+    /**
+     * @param location the location to set
+     */
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
     /**
      * @return the utilizedMB
      */
@@ -85,16 +88,20 @@ public class DiskSpaceInfo implements Serializable {
     public void setTotalMB(Integer totalMB) {
         this.totalMB = totalMB;
     }
-
-    /* (non-Javadoc)
-     * @see java.lang.Object#toString()
+    
+    /**
+     * @return the type
      */
-    @Override
-    public String toString() {
-        return "DiskSpaceInfo [diskName=" + diskName + ", mountPoint=" + mountPoint + ", utilizedMB=" + utilizedMB + ", totalMB=" + totalMB
-                + "]";
+    public String getType() {
+        return type;
     }
+
     
-    
-    
+    /**
+     * @param type the type to set
+     */
+    public void setType(String type) {
+        this.type = type;
+    }
+
 }
