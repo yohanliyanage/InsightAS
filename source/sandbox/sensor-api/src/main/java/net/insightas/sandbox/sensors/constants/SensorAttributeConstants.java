@@ -300,6 +300,12 @@ public final class SensorAttributeConstants {
         }
     }
     
+    /**
+     * CPU Constants.
+     * 
+     * @author Yohan Liyanage (yohan at computer dot org)
+     *
+     */
     public static final class CPUConstants {
 
         /**
@@ -332,6 +338,12 @@ public final class SensorAttributeConstants {
         }
     }
     
+    /**
+     * Disk Constants.
+     * 
+     * @author Yohan Liyanage (yohan at computer dot org)
+     *
+     */
     public static final class DiskConstants {
 
         /**
@@ -344,6 +356,12 @@ public final class SensorAttributeConstants {
         }
     }
     
+    /**
+     * Memory Constants.
+     * 
+     * @author Yohan Liyanage (yohan at computer dot org)
+     *
+     */
     public static final class MemoryConstants {
         /**
          * Actual Memory Usage (MB). Note that the rest of the used memory (Total - Free - Actual Used) are for caching.
