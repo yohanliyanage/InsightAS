@@ -289,6 +289,10 @@ public final class SensorAttributeConstants {
         public static final String OS_PATCH_INFO = "OS_PATCH_INFO";
         
         /**
+         * System Up Time. In Seconds.
+         */
+        public static final String UPTIME_SECONDS = "UPTIME_SECONDS";
+        /**
          * Private Constructor. No instantiation.
          */
         private OSConstants() {
@@ -322,6 +326,10 @@ public final class SensorAttributeConstants {
          * CPU Information DTO Holder.
          */
         public static final String CPU_INFO_DATA = "CPU_INFO_DATA";
+        
+        private CPUConstants() {
+            // No instantiation
+        }
     }
     
     public static final class DiskConstants {
@@ -331,6 +339,9 @@ public final class SensorAttributeConstants {
          */
         public static final String DISK_UTLIZATION_DATA = "DISK_UTILIZATION_DATA";
         
+        private DiskConstants() {
+            // No instantiation
+        }
     }
     
     public static final class MemoryConstants {
@@ -348,8 +359,31 @@ public final class SensorAttributeConstants {
          * Free Memory (MB). 
          */
         public static final String FREE_MEMORY = "FREE_MEMORY";
+        
+        private MemoryConstants() {
+            // No instantiation
+        }
     }
     
+    /**
+     * Network Constants.
+     */
+    public static final class NetworkConstants {
+        
+        /**
+         * Fully Qualified Domain Name.
+         */
+        public static final String FQDN = "FQDN";
+        
+        /**
+         * Network Interface Card Data Place Holder.
+         */
+        public static final String NIC_DATA = "NIC_DATA";
+        
+        private NetworkConstants() {
+            // No instantiation
+        }
+    }
     /**
      * Private Constructor. No instantiation.
      */
