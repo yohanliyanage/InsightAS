@@ -18,16 +18,17 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import java.util.Scanner;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import net.insightas.sandbox.sensors.api.Sensor;
 import net.insightas.sandbox.sensors.constants.SensorAttributeConstants;
 import net.insightas.sandbox.sensors.dto.DiskSpaceInfo;
 import net.insightas.sandbox.sensors.dto.SensorData;
 import net.insightas.sandbox.sensors.exception.SensorFailureException;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 
 /**
@@ -44,7 +45,7 @@ public class UnixDiskSpaceSensor implements Sensor {
      * Collects and returns Unix Disk Space Information.
      * @return SensorData for Disk Space.
      */
-    public SensorData collect() throws SensorFailureException {
+    public SensorData collect(Properties settings) throws SensorFailureException {
 
         LOG.info("[UnixDiskSpaceSensor] Collecting Disk Space Data...");
         

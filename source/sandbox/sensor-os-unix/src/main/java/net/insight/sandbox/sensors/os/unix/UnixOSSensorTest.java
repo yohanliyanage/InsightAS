@@ -34,7 +34,7 @@ public class UnixOSSensorTest {
     public static void main(String[] args) throws SensorFailureException {
         
         UnixDiskSpaceSensor diskSensor = new UnixDiskSpaceSensor();
-        SensorData diskData = diskSensor.collect();
+        SensorData diskData = diskSensor.collect(null);
 
         LOG.info("[UnixOSSensor] Disk Data Collected");
     }

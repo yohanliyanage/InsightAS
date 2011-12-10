@@ -13,6 +13,8 @@
 
 package net.insightas.sandbox.sensors.api;
 
+import java.util.Properties;
+
 import net.insightas.sandbox.sensors.dto.SensorData;
 import net.insightas.sandbox.sensors.exception.SensorFailureException;
 
@@ -33,5 +35,5 @@ public interface Sensor {
      * @return sensor data collected
      * @throws SensorFailureException if sensor fails to collect data
      */
-    SensorData collect() throws SensorFailureException;
+    SensorData collect(Properties settings) throws SensorFailureException;
 }
