@@ -141,10 +141,7 @@ public class JBossSensorImpl implements Sensor {
             sensorData = new SensorData();
             
             sensorData.add(SensorAttributeConstants.ServerConstants.HOST_NAME, JMXUtil.getStringAttribute(server, mbServerInfo, "HostName"));
-            sensorData.add(SensorAttributeConstants.ServerConstants.HOST_ADDRESS,
-                    JMXUtil.getStringAttribute(server, mbServerInfo, "HostAddress"));
-            sensorData.add(SensorAttributeConstants.ServerConstants.CPU_COUNT,
-                    JMXUtil.getStringAttribute(server, mbServerInfo, "AvailableProcessors"));
+            sensorData.add(SensorAttributeConstants.ServerConstants.HOST_ADDRESS, JMXUtil.getStringAttribute(server, mbServerInfo, "HostAddress"));
              
             sensorData.add(SensorAttributeConstants.JavaConstants.JVM_NAME, JMXUtil.getStringAttribute(server, mbServerInfo, "JavaVMName"));
             sensorData.add(SensorAttributeConstants.JavaConstants.JAVA_VERSION, JMXUtil.getStringAttribute(server, mbServerInfo, "JavaVersion"));
@@ -152,10 +149,6 @@ public class JBossSensorImpl implements Sensor {
             sensorData.add(SensorAttributeConstants.JavaConstants.JVM_MAX_MEMORY, JMXUtil.getStringAttribute(server, mbServerInfo, "MaxMemory"));
             sensorData.add(SensorAttributeConstants.JavaConstants.JVM_USED_MEMORY,
                     JMXUtil.getStringAttribute(server, mbServerInfo, "TotalMemory"));
-            
-            sensorData.add(SensorAttributeConstants.OSConstants.OS_NAME, JMXUtil.getStringAttribute(server, mbServerInfo, "OSName"));
-            sensorData.add(SensorAttributeConstants.OSConstants.OS_VERSION, JMXUtil.getStringAttribute(server, mbServerInfo, "OSVersion"));
-            sensorData.add(SensorAttributeConstants.OSConstants.OS_ARCHITECTURE, JMXUtil.getStringAttribute(server, mbServerInfo, "OSArch"));
             
             // // Gather Heap Information
             String strHeapXML = (JMXUtil.invokeOperation(server, mbServerInfo, "listMemoryPools", new Object[] { Boolean.FALSE },
