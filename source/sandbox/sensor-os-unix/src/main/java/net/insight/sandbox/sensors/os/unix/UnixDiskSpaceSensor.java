@@ -49,7 +49,7 @@ public class UnixDiskSpaceSensor implements Sensor {
         LOG.info("[UnixDiskSpaceSensor] Collecting Disk Space Data...");
         
         SensorData data = new SensorData();
-        data.add(SensorAttributeConstants.OSConstants.DISK_UTLIZATION_DATA, collectDiskSpaceStatistics());
+        data.add(SensorAttributeConstants.DiskConstants.DISK_UTLIZATION_DATA, collectDiskSpaceStatistics());
         return data;
     }
 

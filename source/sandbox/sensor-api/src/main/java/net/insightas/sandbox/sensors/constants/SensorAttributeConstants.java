@@ -274,27 +274,35 @@ public final class SensorAttributeConstants {
         public static final String OS_ARCHITECTURE = "OS_ARCHITECTURE";
         
         /**
-         * Current CPU Utilization (Percentage).
-         */
-        public static final String CURRENT_CPU_UTILIZATION = "CURRENT_CPU_UTILIZATION";
-        
-        /**
-         * Current Memory Utilization (Percentage).
-         */
-        public static final String CURRENT_MEMORY_UTILIZATION = "CURRENT_MEMORY_UTILIZATION";
-        
-        /**
-         * Current Disk Utilization (List of DiskSpaceInfo objects).
-         */
-        public static final String DISK_UTLIZATION_DATA = "DISK_UTILIZATION_DATA";
-        
-        /**
          * Private Constructor. No instantiation.
          */
         private OSConstants() {
             super();
         }
+    }
+    
+    public static final class CPUConstants {
+        /**
+         * Current CPU Utilization (Percentage).
+         */
+        public static final String CURRENT_CPU_UTILIZATION = "CURRENT_CPU_UTILIZATION";
         
+    }
+    
+    public static final class DiskConstants {
+
+        /**
+         * Current Disk Utilization (List of DiskSpaceInfo objects).
+         */
+        public static final String DISK_UTLIZATION_DATA = "DISK_UTILIZATION_DATA";
+        
+    }
+    
+    public static final class MemoryConstants {
+        /**
+         * Current Memory Utilization (Percentage).
+         */
+        public static final String MEMORY_UTILIZATION = "MEMORY_UTILIZATION";
     }
     
     /**
