@@ -25,7 +25,7 @@ public class ProcessorInfo {
     private String model;
     private int clockSpeedMHz;
     private int cores;
-    private int cacheSizeKB;
+    private long cacheSizeKB;
     
     /**
      * @return the vendor
@@ -86,14 +86,14 @@ public class ProcessorInfo {
     /**
      * @return the cacheSizeKB
      */
-    public int getCacheSizeKB() {
+    public long getCacheSizeKB() {
         return cacheSizeKB;
     }
     
     /**
      * @param cacheSizeKB the cacheSizeKB to set
      */
-    public void setCacheSizeKB(int cacheSizeKB) {
+    public void setCacheSizeKB(long cacheSizeKB) {
         this.cacheSizeKB = cacheSizeKB;
     }
 
@@ -105,7 +105,7 @@ public class ProcessorInfo {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + cacheSizeKB;
+        result = prime * result + ((int)cacheSizeKB);
         result = prime * result + clockSpeedMHz;
         result = prime * result + cores;
         result = prime * result + ((model == null) ? 0 : model.hashCode());
