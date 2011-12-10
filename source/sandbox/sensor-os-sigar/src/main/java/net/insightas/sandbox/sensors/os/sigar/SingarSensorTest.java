@@ -19,6 +19,7 @@ import org.hyperic.sigar.CpuInfo;
 import org.hyperic.sigar.CpuPerc;
 import org.hyperic.sigar.FileSystem;
 import org.hyperic.sigar.FileSystemUsage;
+import org.hyperic.sigar.Mem;
 import org.hyperic.sigar.NetInterfaceConfig;
 import org.hyperic.sigar.Sigar;
 import org.hyperic.sigar.SigarException;
@@ -52,6 +53,12 @@ public class SingarSensorTest {
         System.out.println("CPU User : " + (cpuPerc.getUser()  * 100));
         System.out.println("CPU System : " + (cpuPerc.getSys()  * 100));
         System.out.println("CPU Combined : " + (cpuPerc.getCombined())  * 100);
+
+        // Memory
+        Mem mem = sigar.getMem();
+        System.out.println("Mem Total (MB) : " + (mem.getTotal() / (1024 * 1024)));
+        System.out.println("Mem Free  (MB) : " + (mem.getFree() / (1024 * 1024)));
+        System.out.println("Mem Actual In Use (MB) : " + mem.getActualUsed() / (1024*1024));
         
         // File Systems
         FileSystem[] fileSystems = sigar.getFileSystemList();
@@ -77,7 +84,8 @@ public class SingarSensorTest {
             System.out.println("Type : " + cfg.getType());
             System.out.println();
         }
-        
+        System.out.println();
+        System.out.println("Uptime (seconds) : " + sigar.getUptime().getUptime());
     }
     
 }
