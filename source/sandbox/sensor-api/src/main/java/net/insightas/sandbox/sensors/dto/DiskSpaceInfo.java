@@ -28,8 +28,8 @@ public class DiskSpaceInfo implements Serializable {
     private String diskName;
     private String location;
     private String type;
-    private Integer utilizedMB;
-    private Integer totalMB;
+    private Long usedMB;
+    private Long totalMB;
     
     /**
      * @return the diskName
@@ -62,30 +62,30 @@ public class DiskSpaceInfo implements Serializable {
     }
 
     /**
-     * @return the utilizedMB
+     * @return the usedMB
      */
-    public Integer getUtilizedMB() {
-        return utilizedMB;
+    public Long getUsedMB() {
+        return usedMB;
     }
     
     /**
-     * @param utilizedMB the utilizedMB to set
+     * @param usedMB the usedMB to set
      */
-    public void setUtilizedMB(Integer utilizedMB) {
-        this.utilizedMB = utilizedMB;
+    public void setUsedMB(Long usedMB) {
+        this.usedMB = usedMB;
     }
     
     /**
      * @return the totalMB
      */
-    public Integer getTotalMB() {
+    public Long getTotalMB() {
         return totalMB;
     }
     
     /**
      * @param totalMB the totalMB to set
      */
-    public void setTotalMB(Integer totalMB) {
+    public void setTotalMB(Long totalMB) {
         this.totalMB = totalMB;
     }
     
