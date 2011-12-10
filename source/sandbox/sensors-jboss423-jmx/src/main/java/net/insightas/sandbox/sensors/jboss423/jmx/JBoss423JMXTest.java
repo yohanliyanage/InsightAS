@@ -65,7 +65,6 @@ public class JBoss423JMXTest {
     
     public static void main(String[] args) throws Exception {
         
-        LOG.info("Test");
         if (LOG.isDebugEnabled()) {
             LOG.debug("Preparing JNDI Connection...");
         }
