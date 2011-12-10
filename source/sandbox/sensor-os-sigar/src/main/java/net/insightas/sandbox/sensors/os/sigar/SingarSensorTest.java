@@ -31,7 +31,7 @@ public class SingarSensorTest {
     
     public static void main(String[] args) throws SigarException {
     
-        System.setProperty("org.hyperic.sigar.path", new File("./lib").getAbsolutePath());
+        System.setProperty(SigarConstants.SIGAR_PATH, new File(SigarConstants.SIGAR_PATH_DEFAULT).getAbsolutePath());
         Sigar sigar = new Sigar();
 
         CpuInfo[] cpuInfoArray = sigar.getCpuInfoList();
