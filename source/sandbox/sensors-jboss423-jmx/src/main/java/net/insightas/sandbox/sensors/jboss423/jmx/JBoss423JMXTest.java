@@ -37,6 +37,7 @@ import net.insightas.sandbox.sensors.dto.SensorData;
 import net.insightas.sandbox.sensors.exception.SensorConnectionFailureException;
 import net.insightas.sandbox.sensors.exception.SensorFailureException;
 import net.insightas.sandbox.sensors.jboss423.jmx.JBossJMXConstants.JNDIConstants;
+import net.insightas.sandbox.sensors.jboss423.jmx.JBossJMXConstants.MBeanConstants;
 import net.insightas.sandbox.sensors.util.JMXUtil;
 
 import org.apache.commons.logging.Log;
@@ -54,10 +55,7 @@ import org.xml.sax.XMLReader;
  */
 public class JBoss423JMXTest {
     
-    /**
-     * 
-     */
-    private static final String JBOSS_JMX_ADAPTER = "jmx/invoker/RMIAdaptor";
+
     
     private static final Log LOG = LogFactory.getLog(JBoss423JMXTest.class);
     
@@ -85,10 +83,10 @@ public class JBoss423JMXTest {
         MBeanServerConnection server;
         
         try {
-            server = (MBeanServerConnection) ctx.lookup(JBOSS_JMX_ADAPTER);
+            server = (MBeanServerConnection) ctx.lookup(MBeanConstants.JBOSS_JMX_ADAPTER);
         } catch (CommunicationException e) {
-            LOG.warn("Unable to establish connection to MBean Server [" + JBOSS_JMX_ADAPTER + "]  on " + JBOSS_JNDI_URL, e);
-            throw new SensorConnectionFailureException("Cannot connect to MBean Server [" + JBOSS_JMX_ADAPTER + "] on " + JBOSS_JNDI_URL, e);
+            LOG.warn("Unable to establish connection to MBean Server [" + MBeanConstants.JBOSS_JMX_ADAPTER + "]  on " + JBOSS_JNDI_URL, e);
+            throw new SensorConnectionFailureException("Cannot connect to MBean Server [" + MBeanConstants.JBOSS_JMX_ADAPTER + "] on " + JBOSS_JNDI_URL, e);
         }
         
         if (LOG.isDebugEnabled()) {
@@ -96,7 +94,7 @@ public class JBoss423JMXTest {
         }
         
         // ServerInfo MBean
-        final ObjectName mbServerInfo = new ObjectName("jboss.system:type=ServerInfo");
+        final ObjectName mbServerInfo = new ObjectName(MBeanConstants.JBOSS_SERVER_INFO_OBJ_NAME);
         
         SensorData sensorData = new SensorData();
         

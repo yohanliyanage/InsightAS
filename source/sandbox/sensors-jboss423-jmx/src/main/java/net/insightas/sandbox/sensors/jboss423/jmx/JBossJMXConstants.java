@@ -22,6 +22,25 @@ package net.insightas.sandbox.sensors.jboss423.jmx;
  */
 public final class JBossJMXConstants {
 
+
+    /**
+     * JMX MBean Constants.
+     * @author Yohan Liyanage (yohan at computer dot org)
+     *
+     */
+    public static final class MBeanConstants {
+        
+        /**
+         * JMX Adapter MBean Reference.
+         */
+        public static final String JBOSS_JMX_ADAPTER = "jmx/invoker/RMIAdaptor";
+        
+        /**
+         * ObjectName for ServerInfo MBean.
+         */
+        public static final String JBOSS_SERVER_INFO_OBJ_NAME = "jboss.system:type=ServerInfo";
+    }
+    
     /**
      * JNDI Constants.
      * 
