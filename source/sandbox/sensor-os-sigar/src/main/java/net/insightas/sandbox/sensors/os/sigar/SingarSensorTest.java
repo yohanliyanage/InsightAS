@@ -19,6 +19,7 @@ import org.hyperic.sigar.CpuInfo;
 import org.hyperic.sigar.CpuPerc;
 import org.hyperic.sigar.FileSystem;
 import org.hyperic.sigar.FileSystemUsage;
+import org.hyperic.sigar.NetInterfaceConfig;
 import org.hyperic.sigar.Sigar;
 import org.hyperic.sigar.SigarException;
 
@@ -34,6 +35,7 @@ public class SingarSensorTest {
         System.setProperty(SigarConstants.SIGAR_PATH, new File(SigarConstants.SIGAR_PATH_DEFAULT).getAbsolutePath());
         Sigar sigar = new Sigar();
 
+        // CPU Info
         CpuInfo[] cpuInfoArray = sigar.getCpuInfoList();
 
         for (int i = 0; i < cpuInfoArray.length; i++) {
@@ -44,12 +46,14 @@ public class SingarSensorTest {
             System.out.println("\tCache Size : " + cpuInfo.getCacheSize() + " KB");
         }
         
+        // CPU Usage
         CpuPerc cpuPerc = sigar.getCpuPerc();
         System.out.println("CPU Idle : " + (cpuPerc.getIdle()  * 100));
         System.out.println("CPU User : " + (cpuPerc.getUser()  * 100));
         System.out.println("CPU System : " + (cpuPerc.getSys()  * 100));
         System.out.println("CPU Combined : " + (cpuPerc.getCombined())  * 100);
         
+        // File Systems
         FileSystem[] fileSystems = sigar.getFileSystemList();
         
         for (FileSystem fs : fileSystems) {
@@ -63,6 +67,16 @@ public class SingarSensorTest {
             System.out.println();
         }
         
+        // Network
+        System.out.println("FQDN : " + sigar.getFQDN());
+        for (String nic : sigar.getNetInterfaceList()) {
+            System.out.println("NIC : " + nic);
+            NetInterfaceConfig cfg = sigar.getNetInterfaceConfig(nic);
+            System.out.println("IP Address : " + cfg.getAddress());
+            System.out.println("MAC Address : " + cfg.getHwaddr());
+            System.out.println("Type : " + cfg.getType());
+            System.out.println();
+        }
         
     }
     
